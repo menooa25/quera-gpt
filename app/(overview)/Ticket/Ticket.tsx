@@ -1,14 +1,19 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Cart from "../../components/Cart";
 import QATeacher from "./QATeacher/QATeacher";
 import TabBtn from "./TabBtn";
+import { Suspense, useEffect } from "react";
 
 const Ticket = () => {
   const tabName = useSearchParams().get("tab");
+  const router = useRouter();
   const QATeacherLable = "سوال از مربی‌های دوره";
   const QAGptLable = "سوال از ربات QGPT";
+  useEffect(() => {
+    router.replace(`/?tab=${QATeacherLable}`);
+  }, []);
   return (
     <div className="p-6">
       <Cart title="درخواست پشتیبانی">
@@ -19,8 +24,10 @@ const Ticket = () => {
           دیباگ کردن بهتون کمک کنیم.
         </p>
         <div className="rounded-lg overflow-hidden text-lg font-bold text-qu-gray-600 flex items-center shadow-md">
-          <TabBtn title={QAGptLable} />
-          <TabBtn title={QATeacherLable} />
+          <Suspense>
+            <TabBtn title={QAGptLable} />
+            <TabBtn title={QATeacherLable} />
+          </Suspense>
         </div>
         <div className="my-5 mx-3">
           {tabName === QATeacherLable && <QATeacher />}

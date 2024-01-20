@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import Ticket from "./Ticket/Ticket";
 
 export default function Home() {
   return (
     <main dir="rtl">
-      <Ticket />
+      <Suspense>
+        <Ticket />
+      </Suspense>
     </main>
   );
 }
