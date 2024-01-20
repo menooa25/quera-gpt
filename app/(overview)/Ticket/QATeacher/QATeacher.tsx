@@ -42,6 +42,7 @@ const QATeacher = () => {
       </div>
       <Question />
       <ImageFile />
+      <button className="btn">ارسال</button>
     </div>
   );
 };

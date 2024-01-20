@@ -1,11 +1,14 @@
 "use client";
+
 import { MdAttachFile } from "react-icons/md";
+import { useState } from "react";
 const FileInput = () => {
+  const [fileId] = useState("fileInputId");
   return (
     <>
       <div className="">
         <label
-          htmlFor={"file"}
+          htmlFor={fileId}
           className="flex-1 input flex justify-between text-black text-opacity-35"
         >
           <span>ضمیمه پاسخ ارسالی</span>
@@ -13,7 +16,7 @@ const FileInput = () => {
         </label>
       </div>
 
-      <input id="file" type="file" hidden />
+      <input id={fileId} type="file" hidden />
     </>
   );
 };

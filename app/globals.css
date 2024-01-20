@@ -13,4 +13,7 @@
      focus-visible:outline-qu-gray-200
       placeholder:text-opacity-35;
   }
+  .btn {
+    @apply bg-qu-gray-100 py-[10px] px-4 rounded-md max-w-[160px] font-bold text-qu-gray-500;
+  }
 }
