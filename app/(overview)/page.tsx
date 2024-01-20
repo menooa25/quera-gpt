@@ -1,3 +1,9 @@
+import Ticket from "./Ticket/Ticket";
+
 export default function Home() {
-  return <main>hi</main>;
+  return (
+    <main dir="rtl">
+      <Ticket />
+    </main>
+  );
 }
