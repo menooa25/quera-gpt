@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AttachFile from "./AttackFile";
 import Question from "./Question";
 import ImageFile from "./ImageFile";
@@ -10,6 +10,8 @@ import QuestionType from "../QuestionType";
 import QuestionTitle from "../QuestionTitle";
 import ErrorMsg from "@/app/components/ErrorMsg";
 import Loading from "@/app/components/Loading";
+import { generateTitle } from "../actions";
+import { TitleContext } from "../TitleContextProvider";
 
 export type Inputs = {
   questionType: string;
@@ -27,16 +29,21 @@ const QATeacherForm = () => {
     handleSubmit,
     watch,
     setError,
+    trigger,
     formState: { errors },
   } = useForm<Inputs>();
   const [loading, setLoading] = useState(false);
+  const { setTitle, title } = useContext(TitleContext);
   const image = watch("image");
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const cleanedData = { ...data, attackFile: data.attackFile[0] };
     setLoading(true);
+    const cleanedData = { ...data, attackFile: data.attackFile[0] };
+    if (!title) {
+      const generatedTitle = await generateTitle(cleanedData.question);
+      setTitle(generatedTitle ?? "");
+    }
 
-    console.log("submit", cleanedData);
-    setTimeout(() => setLoading(false), 500);
+    setLoading(false);
   };
   useEffect(() => {
     if (image) {
@@ -56,7 +63,9 @@ const QATeacherForm = () => {
           <div className="flex-1">
             <QuestionType
               register={{
-                ...register("questionType", { validate: validateQuestionType }),
+                ...register("questionType", {
+                  validate: validateQuestionType,
+                }),
               }}
             />
             <ErrorMsg text={errors.questionType?.message} />
@@ -76,7 +85,12 @@ const QATeacherForm = () => {
         </div>
       </div>
       <div>
-        <Question register={{ ...register("question", { required: true }) }} />
+        <div>
+          <span className="text-lg font-bold mb-1">متن</span>
+          <Question
+            register={{ ...register("question", { required: true }) }}
+          />
+        </div>
         <ErrorMsg
           text={
             errors.question?.type === "required" &&

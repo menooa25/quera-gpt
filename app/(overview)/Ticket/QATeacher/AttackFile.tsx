@@ -7,12 +7,13 @@ interface Props {
 }
 const AttachFile = ({ register }: Props) => {
   const [fileId] = useState("fileInputId");
+
   return (
     <>
-      <div className="">
+      <div>
         <label
           htmlFor={fileId}
-          className="flex-1 input flex justify-between text-black text-opacity-35"
+          className="flex-1 input flex cursor-pointer justify-between text-black text-opacity-35"
         >
           <span>ضمیمه پاسخ ارسالی</span>
           <MdAttachFile className="text-black text-opacity-35" size={20} />

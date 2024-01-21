@@ -1,4 +1,8 @@
 "use client";
+
+import classNames from "classnames";
+import { useState } from "react";
+
 interface Props {
   register: any;
 }
@@ -9,16 +13,24 @@ const questions = [
 ];
 
 const QuestionType = ({ register }: Props) => {
+  const [changed, setChanged] = useState(false);
+  const selectClassName = classNames({
+    "focus-visible:outline-none w-full": true,
+    "text-black text-opacity-100": changed,
+  });
   return (
     <div className="input w-full  text-black text-opacity-35">
       <select
         required
         {...register}
-        className="focus-visible:outline-none w-full"
+        defaultValue={0}
+        className={selectClassName}
+        onClick={(v: any) => v?.target?.value !== "0" && setChanged(true)}
       >
         {questions.map(({ text, value }) => (
           <option
             className="text-black text-opacity-100"
+            disabled={value === 0}
             value={value}
             key={value}
           >

@@ -5,6 +5,8 @@ import Cart from "../../components/Cart";
 import QATeacherForm from "./QATeacher/QATeacherForm";
 import TabBtn from "./TabBtn";
 import { Suspense, useEffect } from "react";
+import TitleContextProvider from "./TitleContextProvider";
+import QAGPT from "./QAGPT/QAGPT";
 
 const Ticket = () => {
   const tabName = useSearchParams().get("tab");
@@ -30,7 +32,10 @@ const Ticket = () => {
           </Suspense>
         </div>
         <div className="my-5 mx-3">
-          {tabName === QATeacherLable && <QATeacherForm />}
+          <TitleContextProvider>
+            {tabName === QATeacherLable && <QATeacherForm />}
+            {tabName === QAGptLable && <QAGPT />}
+          </TitleContextProvider>
         </div>
       </Cart>
     </div>
