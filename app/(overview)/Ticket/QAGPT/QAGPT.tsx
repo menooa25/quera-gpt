@@ -5,7 +5,7 @@ import QuestionTitle from "../QuestionTitle";
 import QuestionType from "../QuestionType";
 import { validateQuestionType } from "../QATeacher/functions";
 import { useForm } from "react-hook-form";
-import Question from "../QATeacher/Question";
+import Question from "./Question";
 
 export type Inputs = {
   questionType: string;
@@ -40,7 +40,9 @@ const QAGPT = () => {
           <ErrorMsg text={errors.questionType?.message} />
         </div>
       </div>
-      <div className="mt-auto "></div>
+      <div className="mt-auto ">
+        <Question />
+      </div>
     </div>
   );
 };
