@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { UseFormSetValue } from "react-hook-form";
-import { Inputs } from "./QATeacher";
+import { Inputs } from "./QATeacherForm";
 interface Props {
   formSetValue: UseFormSetValue<Inputs>;
 }

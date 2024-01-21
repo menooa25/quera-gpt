@@ -9,6 +9,7 @@ import { validateFileIsUnderXmb, validateQuestionType } from "./functions";
 import QuestionType from "../QuestionType";
 import QuestionTitle from "../QuestionTitle";
 import ErrorMsg from "@/app/components/ErrorMsg";
+import Loading from "@/app/components/Loading";
 
 export type Inputs = {
   questionType: string;
@@ -18,7 +19,7 @@ export type Inputs = {
   image: File[];
 };
 
-const QATeacher = () => {
+const QATeacherForm = () => {
   const {
     register,
     clearErrors,
@@ -28,10 +29,14 @@ const QATeacher = () => {
     setError,
     formState: { errors },
   } = useForm<Inputs>();
+  const [loading, setLoading] = useState(false);
   const image = watch("image");
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const cleanedData = { ...data, attackFile: data.attackFile[0] };
+    setLoading(true);
+
     console.log("submit", cleanedData);
+    setTimeout(() => setLoading(false), 500);
   };
   useEffect(() => {
     if (image) {
@@ -84,11 +89,17 @@ const QATeacher = () => {
         <ErrorMsg text={errors.image?.message} />
       </div>
 
-      <button type="submit" className="btn">
-        ارسال
+      <button
+        disabled={loading}
+        type="submit"
+        className={`btn flex justify-center items-center ${
+          loading && "cursor-not-allowed"
+        }`}
+      >
+        {loading ? <Loading /> : "ارسال"}
       </button>
     </form>
   );
 };
 
-export default QATeacher;
+export default QATeacherForm;

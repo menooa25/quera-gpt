@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import Cart from "../../components/Cart";
-import QATeacher from "./QATeacher/QATeacher";
+import QATeacherForm from "./QATeacher/QATeacherForm";
 import TabBtn from "./TabBtn";
 import { Suspense, useEffect } from "react";
 
@@ -30,7 +30,7 @@ const Ticket = () => {
           </Suspense>
         </div>
         <div className="my-5 mx-3">
-          {tabName === QATeacherLable && <QATeacher />}
+          {tabName === QATeacherLable && <QATeacherForm />}
         </div>
       </Cart>
     </div>
