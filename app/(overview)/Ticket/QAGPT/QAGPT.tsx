@@ -5,6 +5,7 @@ import QuestionTitle from "../QuestionTitle";
 import QuestionType from "../QuestionType";
 import { validateQuestionType } from "../QATeacher/functions";
 import { useForm } from "react-hook-form";
+import QuestionInput from "./QuestionInput";
 import Question from "./Question";
 
 export type Inputs = {
@@ -24,8 +25,8 @@ const QAGPT = () => {
     formState: { errors },
   } = useForm<Inputs>();
   return (
-    <div>
-      <div className="flex gap-x-3 min-h-[475px]">
+    <div className="min-h-[475px] flex gap-y-3 flex-col">
+      <div className="flex gap-x-3 ">
         <div className="flex-1">
           <QuestionTitle register={{ ...register("title") }} />
         </div>
@@ -40,8 +41,9 @@ const QAGPT = () => {
           <ErrorMsg text={errors.questionType?.message} />
         </div>
       </div>
-      <div className="mt-auto ">
-        <Question />
+      <Question />
+      <div className="mt-auto w-full">
+        <QuestionInput />
       </div>
     </div>
   );

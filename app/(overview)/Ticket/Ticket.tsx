@@ -14,7 +14,7 @@ const Ticket = () => {
   const QATeacherLable = "سوال از مربی‌های دوره";
   const QAGptLable = "سوال از ربات QGPT";
   useEffect(() => {
-    router.replace(`/?tab=${QATeacherLable}`);
+    router.replace(`/?tab=${QAGptLable}`);
   }, []);
   return (
     <div className="p-6">

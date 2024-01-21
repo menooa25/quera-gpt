@@ -11,7 +11,7 @@ const QuestionTitle = ({ register }: Props) => {
   return (
     <input
       type="text"
-      className="input w-full"
+      className="input w-full h-full"
       placeholder="عنوان سوال"
       {...register}
       onChange={({ target: { value } }) => setTitle(value)}

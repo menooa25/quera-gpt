@@ -1,20 +1,23 @@
 "use client";
-import useNoScroll from "@/app/hooks/useNoScroll";
-import { useRef } from "react";
-import { FiArrowLeft } from "react-icons/fi";
+
+import { convertToPersianNumbers } from "@/app/utils";
+import { format } from "date-fns-jalali";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 const Question = () => {
-  const textareaRef: any = useRef();
-  const { onScroll } = useNoScroll(textareaRef);
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    setTime(
+      convertToPersianNumbers(format(new Date(), " d MMMM yyyy ساعت HH:mm"))
+    );
+  }, []);
   return (
-    <div className="input w-full flex items-start -mb-2 min-h-16 !p-2 ">
-      <textarea
-        onScroll={onScroll}
-        className="w-full min-h-3 focus-visible:outline-none"
-        placeholder="سوال خودتون رو اینجا بنویسید"
-      />
-      <div className="p-3 bg-qu-gray-100 rounded-md">
-        <FiArrowLeft className="text-qu-gray-500" size={24} />
+    <div>
+      <div className="flex gap-x-2 items-center text-sm">
+        <Image height={40} width={40} alt="avatar image" src={"/avatar.jpg"} />
+        <span>منوا اسکندریان</span>
+        <span className="text-qu-gray-500">{time}</span>
       </div>
     </div>
   );
