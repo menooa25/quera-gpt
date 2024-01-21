@@ -2,7 +2,10 @@
 
 import { MdAttachFile } from "react-icons/md";
 import { useState } from "react";
-const FileInput = () => {
+interface Props {
+  register: any;
+}
+const FileInput = ({ register }: Props) => {
   const [fileId] = useState("fileInputId");
   return (
     <>
@@ -16,7 +19,7 @@ const FileInput = () => {
         </label>
       </div>
 
-      <input id={fileId} type="file" hidden />
+      <input {...register} id={fileId} type="file" hidden />
     </>
   );
 };

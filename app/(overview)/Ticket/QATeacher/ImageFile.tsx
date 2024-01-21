@@ -2,12 +2,19 @@
 import Image from "next/image";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-
-const ImageFile = () => {
-  const onDrop = useCallback((acceptedFiles: any) => {
-    console.log(acceptedFiles);
+import { UseFormSetValue } from "react-hook-form";
+import { Inputs } from "./QATeacher";
+interface Props {
+  formSetValue: UseFormSetValue<Inputs>;
+}
+const ImageFile = ({ formSetValue }: Props) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    formSetValue("image", acceptedFiles[0]);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+  });
   return (
     <div
       {...getRootProps()}
