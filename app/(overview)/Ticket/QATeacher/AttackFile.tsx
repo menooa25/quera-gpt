@@ -5,7 +5,7 @@ import { useState } from "react";
 interface Props {
   register: any;
 }
-const FileInput = ({ register }: Props) => {
+const AttachFile = ({ register }: Props) => {
   const [fileId] = useState("fileInputId");
   return (
     <>
@@ -19,9 +19,9 @@ const FileInput = ({ register }: Props) => {
         </label>
       </div>
 
-      <input {...register} id={fileId} type="file" hidden />
+      <input {...register} id={fileId} accept="image/*" type="file" hidden />
     </>
   );
 };
 
-export default FileInput;
+export default AttachFile;

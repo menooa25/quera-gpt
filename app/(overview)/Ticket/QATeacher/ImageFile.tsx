@@ -9,11 +9,14 @@ interface Props {
 }
 const ImageFile = ({ formSetValue }: Props) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    formSetValue("image", acceptedFiles[0]);
+    formSetValue("image", acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1,
+    accept: {
+      "image/*": [],
+    },
   });
   return (
     <div
@@ -32,7 +35,7 @@ const ImageFile = ({ formSetValue }: Props) => {
         </span>
         <span className="text-primary-600">انتخاب کنید</span>
       </div>
-      <input {...getInputProps()} className="hidden" />
+      <input type="file" {...getInputProps()} className="hidden" />
     </div>
   );
 };
