@@ -38,16 +38,22 @@ export const getGptQuestionAnswers = async () => {
 export const generateAnswer = async () => {
   const questions = await prisma.gptQuestion.findMany({
     include: { Answer: true },
+    orderBy: { create_at: "desc" },
+    take: 4,
   });
   let concatedQA = "";
-  let lastQuestionId = -1;
+  let lastQuestion = await prisma.gptQuestion.findFirst({
+    orderBy: { id: "desc" },
+    select: { id: true },
+  });
+  if (!lastQuestion) return "";
   for (let q of questions) {
-    concatedQA += `question: ${q.ask} \n `;
+    concatedQA += `${q.ask} \n `;
     if (q.Answer) {
-      concatedQA += `answer: ${q.Answer.text} \n `;
+      concatedQA += `${q.Answer.text} \n `;
     }
-    lastQuestionId = q.id;
   }
+
   try {
     const openAi = createOpenAi();
     const answer = await openAi.chat.completions.create({
@@ -62,7 +68,7 @@ export const generateAnswer = async () => {
     const aiGeneratedAnswer =
       answer.choices[0].message.content?.toString() ?? "";
     await prisma.answer.create({
-      data: { text: aiGeneratedAnswer, gptQuestionId: lastQuestionId },
+      data: { text: aiGeneratedAnswer, gptQuestionId: lastQuestion.id },
     });
   } catch {
     return "";

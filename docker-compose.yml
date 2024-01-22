@@ -7,15 +7,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-    command:  ["npm", "run", "start"]
-    restart: always
+    command: bash -c "sleep 45s && npx prisma migrate deploy ; npm run start"
+    restart: unless-stopped
     depends_on:
       - db
   db:
       image: postgres:12-alpine
       container_name: db
+      restart: always
       ports:
         - "5432:5432"
       env_file:
