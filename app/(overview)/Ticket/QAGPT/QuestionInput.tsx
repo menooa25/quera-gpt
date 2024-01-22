@@ -1,5 +1,7 @@
 "use client";
+import Loading from "@/app/components/Loading";
 import useNoScroll from "@/app/hooks/useNoScroll";
+import { direction } from "direction";
 import { useRef } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 interface Props {
@@ -16,7 +18,7 @@ const QuestionInput = ({ register }: Props) => {
         className="w-full !min-h-full  focus-visible:outline-none"
         placeholder="سوال خودتون رو اینجا بنویسید"
       />
-      <button type="submit" className="p-3 bg-qu-gray-100 rounded-md">
+      <button type="submit" className={"p-3 bg-qu-gray-100 rounded-md"}>
         <FiArrowLeft className="text-qu-gray-500" size={24} />
       </button>
     </div>

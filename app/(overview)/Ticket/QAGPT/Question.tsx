@@ -1,4 +1,6 @@
+import { direction } from "direction";
 import Image from "next/image";
+import Markdown from "react-markdown";
 
 interface Props {
   text: string;
@@ -28,7 +30,19 @@ const Question = ({ text, dateTime, isUser = false }: Props) => {
         {isUser ? <span>منوا اسکندریان</span> : <span>کیوجی‌پی‌تی</span>}
         <span className="text-qu-gray-500">{dateTime}</span>
       </div>
-      <span className="mt-2 text-qu-gray-800 text-xs">{text}</span>
+      {isUser && (
+        <span dir={direction(text)} className="mt-2 text-qu-gray-800 text-xs">
+          {text}
+        </span>
+      )}
+      {isUser || (
+        <div
+          dir={direction(text)}
+          className="m-0 p-0 mt-2 text-qu-gray-800 text-xs   overflow-hidden"
+        >
+          <Markdown>{text.replaceAll("answer:", "").trim()}</Markdown>
+        </div>
+      )}
     </div>
   );
 };

@@ -3,10 +3,11 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import Cart from "../../components/Cart";
-import QAGPT from "./QAGPT/QAGPT";
+import QAGPTForm from "./QAGPT/QAGPTForm";
 import QATeacherForm from "./QATeacher/QATeacherForm";
 import TabBtn from "./TabBtn";
 import TitleContextProvider from "./TitleContextProvider";
+import QAContextProvider from "./QAGPT/QAContextProvider";
 
 const Ticket = () => {
   const tabName = useSearchParams().get("tab");
@@ -34,7 +35,11 @@ const Ticket = () => {
           </div>
           <div className="my-5 mx-3">
             {tabName === QATeacherLable && <QATeacherForm />}
-            {tabName === QAGptLable && <QAGPT />}
+            {tabName === QAGptLable && (
+              <QAContextProvider>
+                <QAGPTForm />
+              </QAContextProvider>
+            )}
           </div>
         </Cart>
       </TitleContextProvider>

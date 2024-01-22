@@ -15,3 +15,7 @@ export const convertToPersianNumbers = (inputString: string) => {
 export const formatDate = (date: Date) => {
   return convertToPersianNumbers(format(date, " d MMMM yyyy ساعت HH:mm"));
 };
+
+export const scrollToRef = (ref: any) => {
+  ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+};
