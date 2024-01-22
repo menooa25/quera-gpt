@@ -19,7 +19,7 @@ export const generateTitle = async (question: string) => {
           content: `generate title for following question (only 30 character): ${question}`,
         },
       ],
-      model: "gpt-3.5-turbo-0301",
+      model: "gpt-3.5-turbo",
     });
     const title = answer.choices[0].message.content?.toString();
     return title;
