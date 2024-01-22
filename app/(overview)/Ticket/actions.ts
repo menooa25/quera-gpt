@@ -59,7 +59,6 @@ export const generateAnswer = async () => {
       ],
       model: "gpt-3.5-turbo-0301",
     });
-    console.log(answer);
     const aiGeneratedAnswer =
       answer.choices[0].message.content?.toString() ?? "";
     await prisma.answer.create({
