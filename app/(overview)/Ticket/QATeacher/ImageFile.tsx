@@ -11,7 +11,7 @@ const ImageFile = ({ formSetValue }: Props) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     formSetValue("image", acceptedFiles);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
     maxFiles: 1,
     accept: {
@@ -23,12 +23,19 @@ const ImageFile = ({ formSetValue }: Props) => {
       {...getRootProps()}
       className="w-full cursor-pointer border border-dashed rounded-md py-2 px-3 flex flex-col justify-center items-center   border-qu-gray-200"
     >
-      <Image
-        alt="image placeholder"
-        src={"/image_placeholder.svg"}
-        height={75}
-        width={75}
-      />
+      {acceptedFiles.length > 0 ? (
+        <img
+          className="max-w-full"
+          src={URL.createObjectURL(acceptedFiles[0])}
+        />
+      ) : (
+        <Image
+          alt="image placeholder"
+          src={"/image_placeholder.svg"}
+          height={75}
+          width={75}
+        />
+      )}
       <div className="mt-[10px] flex gap-x-2 ">
         <span className="text-black text-opacity-35">
           فایل تصویری خود را اینجا بیندازید یا

@@ -10,6 +10,7 @@ const questions = [
   { value: 0, text: "مسئله" },
   { value: 1, text: "اصلاح کد" },
   { value: 2, text: "حلقه چیست؟" },
+  { value: 3, text: "سوال آزاد" },
 ];
 
 const QuestionType = ({ register }: Props) => {
