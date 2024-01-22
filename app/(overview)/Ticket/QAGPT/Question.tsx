@@ -5,7 +5,10 @@ import { format } from "date-fns-jalali";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const Question = () => {
+interface Props {
+  text: string;
+}
+const Question = ({ text }: Props) => {
   const [time, setTime] = useState("");
   useEffect(() => {
     setTime(
@@ -19,6 +22,7 @@ const Question = () => {
         <span>منوا اسکندریان</span>
         <span className="text-qu-gray-500">{time}</span>
       </div>
+      <span className="mt-2 text-qu-gray-800 text-xs">{text}</span>
     </div>
   );
 };

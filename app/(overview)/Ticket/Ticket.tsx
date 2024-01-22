@@ -17,7 +17,7 @@ const Ticket = () => {
     router.replace(`/?tab=${QAGptLable}`);
   }, []);
   return (
-    <div className="p-6">
+    <div>
       <TitleContextProvider>
         <Cart title="درخواست پشتیبانی">
           <p className="my-3 p-3 text-sm leading-[23.8px] font-normal">
