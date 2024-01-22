@@ -1,25 +1,20 @@
 "use client";
 import { convertToPersianNumbers, formatDate } from "@/app/utils";
 import { format } from "date-fns-jalali";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getGptQuestionAnswers } from "../actions";
 import Question from "./Question";
 import { Answer, GptQuestion } from "@prisma/client";
+import { QAContext } from "./QAContextProvider";
 const QuestionAnswerContainer = () => {
-  const [gptQuestion, setGptQuestion] = useState<
-    (GptQuestion & { Answer: Answer | null })[]
-  >([]);
-  const sendRequest = async () => {
-    const gptQuestionData = await getGptQuestionAnswers();
-    console.log(gptQuestionData);
-    setGptQuestion(gptQuestionData);
-  };
+  const { data, updateQuestions } = useContext(QAContext);
+
   useEffect(() => {
-    sendRequest();
+    updateQuestions();
   }, []);
   return (
     <div className="flex flex-col gap-y-3">
-      {gptQuestion.map(({ id, create_at, ask, Answer }) => (
+      {data.map(({ id, create_at, ask, Answer }) => (
         <div key={id}>
           <Question
             isUser
