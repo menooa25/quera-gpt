@@ -4,9 +4,11 @@ import ErrorMsg from "@/app/components/ErrorMsg";
 import QuestionTitle from "../QuestionTitle";
 import QuestionType from "../QuestionType";
 import { validateQuestionType } from "../QATeacher/functions";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import QuestionInput from "./QuestionInput";
 import Question from "./Question";
+import { addQuestionToGpt } from "../actions";
+import QuestionAnswerContainer from "./QuestionAnswerContainer";
 
 export type Inputs = {
   questionType: string;
@@ -24,8 +26,15 @@ const QAGPT = () => {
     trigger,
     formState: { errors },
   } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { question } = data;
+    if (question) await addQuestionToGpt(question);
+  };
   return (
-    <div className="min-h-[475px] flex gap-y-3 flex-col">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="min-h-[475px] flex  flex-col"
+    >
       <div className="flex gap-x-3 ">
         <div className="flex-1">
           <QuestionTitle register={{ ...register("title") }} />
@@ -41,11 +50,24 @@ const QAGPT = () => {
           <ErrorMsg text={errors.questionType?.message} />
         </div>
       </div>
-      <Question text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. " />
-      <div className="mt-auto w-full">
-        <QuestionInput />
+      <div className="mb-2 max-h-[50vh] overflow-auto mt-3">
+        <QuestionAnswerContainer />
       </div>
-    </div>
+      <div className="mt-auto  w-full">
+        <QuestionInput
+          register={{
+            ...register("question", { required: true }),
+          }}
+        />
+        {errors.question && (
+          <div className="-mb-5 mt-2">
+            <ErrorMsg
+              text={errors.question && "لطفا اول سوال خود را بنویسید"}
+            />
+          </div>
+        )}
+      </div>
+    </form>
   );
 };
 

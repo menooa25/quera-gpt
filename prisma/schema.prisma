@@ -7,5 +7,20 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://env(POSTGRES_USER):env(POSTGRES_PASSWORD)@localhost:5432/env(POSTGRES_DB)?schema=public"
+  url      = env("DATABASE_URL")
+}
+
+model GptQuestion {
+  id        Int      @id @default(autoincrement())
+  ask       String   @db.Text
+  create_at DateTime @default(now())
+  Answer    Answer?
+}
+
+model Answer {
+  id            Int         @id @default(autoincrement())
+  text          String      @db.Text
+  create_at     DateTime    @default(now())
+  GptQuestion   GptQuestion @relation(fields: [gptQuestionId], references: [id])
+  gptQuestionId Int         @unique
 }

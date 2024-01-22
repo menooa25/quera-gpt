@@ -15,6 +15,7 @@ const config: Config = {
       },
       colors: {
         "qu-gray": {
+          50: "#F7FAFC",
           100: "#EDF2F7",
           200: "#E2E8F0",
           400: "#A0AEC0",

@@ -1,6 +1,7 @@
 "use server";
 
 import OpenAI from "openai";
+import prisma from "@/prisma/client";
 
 const createOpenAi = () => {
   const openai = new OpenAI({
@@ -25,4 +26,11 @@ export const generateTitle = async (question: string) => {
   } catch {
     return "";
   }
+};
+
+export const addQuestionToGpt = async (question: string) => {
+  await prisma.gptQuestion.create({ data: { ask: question } });
+};
+export const getGptQuestionAnswers = async () => {
+  return await prisma.gptQuestion.findMany({ include: { Answer: true } });
 };
