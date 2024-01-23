@@ -15,7 +15,11 @@ DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTG
 For start, run following command. Notice that server gonna run on port **3000**.
 
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 I have established the database on port **5432** for anyone interested in reviewing the questions posed to the GPT data.
+
+## Overview
+
+<iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
