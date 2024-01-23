@@ -20,6 +20,3 @@ docker-compose up --build
 
 I have established the database on port **5432** for anyone interested in reviewing the questions posed to the GPT data.
 
-## Overview
-
-<iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
