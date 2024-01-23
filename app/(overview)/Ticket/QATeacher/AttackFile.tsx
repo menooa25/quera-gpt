@@ -1,13 +1,16 @@
 "use client";
 import { MdAttachFile, MdInsertDriveFile } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface Props {
   register: any;
+  file: File[];
 }
-const AttachFile = ({ register }: Props) => {
+const AttachFile = ({ register, file }: Props) => {
   const [fileId] = useState("fileInputId");
   const [fileSelected, setFileSelected] = useState(false);
-
+  useEffect(() => {
+    if (file && file[0]?.size > 3) setFileSelected(true);
+  }, [file]);
   return (
     <>
       <div>
@@ -24,16 +27,7 @@ const AttachFile = ({ register }: Props) => {
         </label>
       </div>
 
-      <input
-        {...register}
-        onChange={({ target: { value } }) =>
-          value.length > 3 && setFileSelected(true)
-        }
-        id={fileId}
-        accept="image/*"
-        type="file"
-        hidden
-      />
+      <input {...register} id={fileId} type="file" hidden />
     </>
   );
 };

@@ -35,6 +35,7 @@ const QATeacherForm = () => {
   const [loading, setLoading] = useState(false);
   const { setTitle, title } = useContext(TitleContext);
   const image = watch("image");
+  const attackFile = watch("attackFile");
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setLoading(true);
     const cleanedData = { ...data, attackFile: data.attackFile[0] };
@@ -51,7 +52,12 @@ const QATeacherForm = () => {
       if (!(fileError === true)) setError("image", { message: fileError });
       else clearErrors("image");
     }
-  }, [image]);
+    if (attackFile) {
+      const fileError = validateFileIsUnderXmb(attackFile);
+      if (!(fileError === true)) setError("attackFile", { message: fileError });
+      else clearErrors("attackFile");
+    }
+  }, [image, attackFile]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5">
@@ -80,6 +86,7 @@ const QATeacherForm = () => {
                 },
               }),
             }}
+            file={attackFile}
           />
           <ErrorMsg text={errors.attackFile?.message} />
         </div>

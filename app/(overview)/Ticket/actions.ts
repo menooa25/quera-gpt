@@ -38,8 +38,6 @@ export const getGptQuestionAnswers = async () => {
 export const generateAnswer = async () => {
   const questions = await prisma.gptQuestion.findMany({
     include: { Answer: true },
-    orderBy: { create_at: "desc" },
-    take: 4,
   });
   let concatedQA = "";
   let lastQuestion = await prisma.gptQuestion.findFirst({
