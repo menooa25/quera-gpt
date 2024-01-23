@@ -22,4 +22,5 @@ I have established the database on port **5432** for anyone interested in review
 
 ## Overview
 
-<iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+https://github.com/menooa25/quera-gpt/assets/58942186/341884d2-cfde-4de1-ba44-ed602d51e20a
+
